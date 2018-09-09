@@ -1,4 +1,4 @@
 # nir
 Python library for reasoning experiments in Psychopy
 
-In progress:
+In progress: create markdown version of readme

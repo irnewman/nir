@@ -22,7 +22,7 @@
 # ---- Import Libraries
 # ---------------------------------------------
 
-from psychopy import visual  # sound, gui, visual, core, data, event, logging
+from psychopy import visual  # core, event, sound, gui, visual, data, logging
 # import os
 # import sys
 # import csv
@@ -34,43 +34,6 @@ from psychopy import visual  # sound, gui, visual, core, data, event, logging
 # ---------------------------------------------
 # ---- Word Problems
 # ---------------------------------------------
-
-
-# change name to something other than word problems
-# maybe move the below to response gathering script
-    # or maybe not, some is in eye-tracking?
-
-def get_response():  # might not be useful, but would standardize the functions (argument for response input)
-    # if eyetracking:
-        # get timecourse response (only use keypresses)
-    # if mousetracking:
-        # get mousetrack response (only use clicks)
-    # if keyboard:
-        # get keyboard response
-    # if mouseclick:
-        # get mouseclick response
-    # if typed:
-        # get multiple keypress response
-            # not sure how to do that yet
-    return
-
-
-def get_keypress_resp():
-    # needs keylist as argument
-    # draw stimuli with other functions, get responses with this
-    # getkeys, return key and rt
-    pass
-    return
-
-def get_mouseclick_resp():
-    # needs list of clickable objects
-        # so that comes from the WordProblem, the borders
-    # also need to know other features of the objects (correct, counterbalancing, etc)
-        # so maybe play with this a bit to get it working, would be nice to have
-    return
-
-
-
 
 class WordProblem(object):
 
@@ -164,19 +127,19 @@ class WordProblem(object):
         # create the borders
         if self.borders:
             self.t1border = visual.Rect(win=win,
-                                        pos=(0, 0.8),
+                                        pos=(0, self.option_pos + (self.term_sep * (terms))),
                                         width=self.border_width,
                                         height=0.25)
             self.t2border = visual.Rect(win=win,
-                                        pos=(0, 0.5),
+                                        pos=(0, self.option_pos + (self.term_sep * (terms-1))),
                                         width=self.border_width,
                                         height=0.25)
             self.t3border = visual.Rect(win=win,
-                                        pos=(0, 0.2),
+                                        pos=(0, self.option_pos + (self.term_sep * (terms-2))),
                                         width=self.border_width,
                                         height=0.25)
             self.t4border = visual.Rect(win=win,
-                                       pos=(0, -0.1),
+                                        pos=(0, self.option_pos + (self.term_sep *1)),
                                        width=self.border_width,
                                        height=0.25)
             self.option1_border = visual.Rect(win=win,
@@ -206,12 +169,7 @@ class WordProblem(object):
         self.option1.draw()
         self.option2.draw()
 
-
 # ---------------------------------------------
-
-
-
-
 
 
 class LastTermOnly(object):
@@ -296,6 +254,5 @@ class LastTermOnly(object):
         self.term.draw()
         self.option1.draw()
         self.option2.draw()
-
 
 # ---------------------------------------------

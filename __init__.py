@@ -24,6 +24,7 @@ from .load_stimuli import *
 from .run_instructions import *
 from .counterbalance import *
 from .isi import *
+from .get_responses import *
 
 # reasoning tasks
 from .word_problems import *

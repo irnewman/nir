@@ -192,7 +192,8 @@ def run_calibration(participant=0, max=10, deviation=1):
 # ---------------------------------------------
 
 
-def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right, pDiam_left, pDiam_right, t_sample, t_num, sample_rate, key_list):
+def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
+                           pDiam_left, pDiam_right, t_sample, t_num, sample_rate, key_list):
 
     eyetrack_timecourse = True
     counter = 1
@@ -203,6 +204,7 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right, pDiam_l
     timer.reset()
     t0 = start = timer.getTime()
     t1 = t0 + sample_rate
+    rt = 0
 
     while eyetrack_timecourse:
     
@@ -210,11 +212,11 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right, pDiam_l
         timestamp = timer.getTime()
         
         # check for response
-        key_press = event.getKeys(keyList = key_list)
+        key_press = event.getKeys(keyList=key_list)
         
         # if response given, end loop
         if len(key_press) > 0:
-            rt = timer.getTime()  # might not need this, it is the total rt
+            rt = timer.getTime()
             eyetrack_timecourse = False
             
         # gather eye-tracking data here

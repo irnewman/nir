@@ -4,7 +4,7 @@ A suite of functions for use with Psychopy experiments.
 ## Usage
 The nir library assumes the use of default experiment handler and trial handler functions from Psychopy. 
 
-## Eye-tracking
+### Eye-tracking
 ```python
 nir.run_calibration(participant=1, max=10, deviation=1)  # calibrates the SMI eye-tracker
 # participant = participant number

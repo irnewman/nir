@@ -2,6 +2,21 @@
 A suite of functions for use with Psychopy experiments. v0.1
 (the readme will be updated in the near future)
 
+## Project Status
+In development.
+
+## Support
+Contact Ian Newman at ian.newman@usask.ca with questions or comments.
+
+## Features
+Simplifies several elements of creating and running psychology experiments (particularly reasoning and metacogitive), including the use of eye-tracking measures (only SMI eye-trackers currently).
+
+## Requirements
+Python and Psychopy. 
+
+## Installation
+Download and extract the nir folder to the same directory as your experiment script.
+
 ## Usage
 The nir library assumes the use of default experiment handler and trial handler functions from Psychopy. See the nir_template.py file.
 

@@ -1,5 +1,6 @@
 # nir
 A suite of functions for use with Psychopy experiments. v0.1
+(the readme will be updated in the near future)
 
 ## Usage
 The nir library assumes the use of default experiment handler and trial handler functions from Psychopy. See the nir_template.py file.

@@ -1,4 +1,11 @@
 # nir
-Python library for reasoning experiments in Psychopy
+A suite of functions for use with Psychopy experiments.
 
-In progress: create markdown version of readme
+## Usage
+The nir library assumes the use of default experiment handler and trial handler functions from Psychopy. 
+
+```python
+import nir
+
+nir.run_calibration()  # calibrates the SMI eye-tracker
+```

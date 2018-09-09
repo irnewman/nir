@@ -50,6 +50,7 @@ def get_keypress_resp(key_list=None):
     timer = core.Clock()
     timer.reset()
     rt = 0
+    key_press = event.BuilderKeyResponse()
 
     while get_key:
 

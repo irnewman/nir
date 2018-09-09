@@ -205,6 +205,7 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
     t0 = start = timer.getTime()
     t1 = t0 + sample_rate
     rt = 0
+    key_press = event.BuilderKeyResponse()
 
     while eyetrack_timecourse:
     

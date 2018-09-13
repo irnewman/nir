@@ -24,9 +24,9 @@ The nir library assumes the use of default experiment handler and trial handler 
 
 ### eye.py
 ```python
-nir.run_calibration(participant=1, max=10, deviation=1)  # calibrates the SMI eye-tracker
+nir.run_calibration(participant=1, max_tries=10, deviation=1)  # calibrates the SMI eye-tracker
 # participant = participant number
-# max = maximum number of calibration attempts
+# max_tries = maximum number of calibration attempts
 # deviation = maximum allowable horizontal or vertical deviation (in degrees) from the calibration target
 ```
 

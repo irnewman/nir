@@ -114,4 +114,3 @@ sampleData = CSample(0,leftEye,rightEye,0)
 eventData = CEvent('F', 'L', 0, 0, 0, 0, 0)
 accuracyData = CAccuracy(0,0,0,0)
 
-

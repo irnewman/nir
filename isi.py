@@ -3,7 +3,7 @@
 # nir library
 # ------------------
 # (Newman, Ian R = nir)
-#
+# https://github.com/irnewman/nir
 #
 # This is a library of tools for the Cognitive Science Lab at the
 # University of Saskatchewan. Please note that this is a work in progress
@@ -12,7 +12,6 @@
 # All correspondence should be directed to:
 #
 # Ian R. Newman
-# University of Saskatchewan
 # ian.newman@usask.ca
 #
 # -----------------------------------------------------------------------
@@ -29,7 +28,7 @@ from psychopy import visual, core  # sound, gui, visual, core, data, event, logg
 # from itertools import product
 
 # ---------------------------------------------
-# ---- ISI (change to StaticPeriod)
+# ---- Inter Stimulus Interval
 # ---------------------------------------------
 
 def isi(window, isi_time=2.0, fixation_duration=0.5, fixation=""):
@@ -43,7 +42,7 @@ def isi(window, isi_time=2.0, fixation_duration=0.5, fixation=""):
             text = any text to be displayed to the screen (default "Next problem in X seconds.")
     """
 
-    text_to_display = "Next problem in " + str(isi_time) + " seconds."
+    text_to_display = "Problem begins in " + str(isi_time) + " seconds."
     isi_dur = isi_time - (fixation_duration+0.5)
 
     # make certain isi_duration is not zero or less

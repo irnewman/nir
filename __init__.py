@@ -3,7 +3,7 @@
 # nir library
 # ------------------
 # (Newman, Ian R = nir)
-#
+# https://github.com/irnewman/nir
 #
 # This is a library of tools for the Cognitive Science Lab at the 
 # University of Saskatchewan. Please note that this is a work in progress
@@ -12,7 +12,6 @@
 # All correspondence should be directed to:
 #
 # Ian R. Newman
-# University of Saskatchewan
 # ian.newman@usask.ca
 #
 # -----------------------------------------------------------------------
@@ -25,6 +24,7 @@ from .run_instructions import *
 from .counterbalance import *
 from .isi import *
 from .get_responses import *
+from .save_to_file import *
 
 # reasoning tasks
 from .word_problems import *
@@ -50,7 +50,7 @@ Coming:
     
 3. other
     a. clickable sitmuli
-    b. online eye/mouse tracking
+    b. mouse tracking
     c. other response scale options
 
 """

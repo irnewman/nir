@@ -3,7 +3,7 @@
 # nir library
 # ------------------
 # (Newman, Ian R = nir)
-#
+# https://github.com/irnewman/nir
 #
 # This is a library of tools for the Cognitive Science Lab at the 
 # University of Saskatchewan. Please note that this is a work in progress
@@ -12,7 +12,6 @@
 # All correspondence should be directed to:
 #
 # Ian R. Newman
-# University of Saskatchewan
 # ian.newman@usask.ca
 #
 # -----------------------------------------------------------------------
@@ -39,38 +38,29 @@ from iViewXAPIReturnCodes import *
 # ---- RunCalibration (not totally finished: change calibration arguments and file logging)
 # ---------------------------------------------
 
-def run_calibration(participant=0, max=10, deviation=1):
+def run_calibration(participant=0, max_tries=10, deviation=1):
 
     """
         Function: connect to SMI eye-tracker, calibrate, validate, and create log file
         Arguments:
             participant = current participant number
-            max = maximum calibration attempts
+            max_tries = maximum calibration attempts
             deviation = acceptable horizontal and vertical deviation from the target
     """
 
     # variables
     calibrated = False
     attempts = 1
-    max_attempts = max
+    max_attempts = max_tries
     calibration_deviation = deviation
 
     # set up the log file
     calibration_dir = os.getcwd()
-    calibration_filename = calibration_dir + os.sep + "P" + str(participant) + ".txt"
+    calibration_filename = calibration_dir + os.sep + "data" + os.sep + str(participant) + "_calibration" + ".txt"
     calibration_log = open(calibration_filename, 'w')
+    res = iViewXAPI.iV_SetLogger(c_int(1), c_char_p(str(participant) + "_log.txt"))
 
-    # to do:
-    # cur_dir = os.path.dirname(os.path.abspath(__file__)) + os.sep + folder
-    # save the logfile to the data folder (currently goes to the main program folder)
-    # overwrites the file with the same name - maybe change
-    # alternative: use 'x' in open(calibration_filename, 'w'), then it will fail if the file already exists
-
-    # connect to iViewX - set logfile name to something else (add argument expname or something)
-    res = iViewXAPI.iV_SetLogger(c_int(1), c_char_p("temp_CRT.txt"))
-    """use this somehow"""
-
-
+    # connect to iViewX
     res = iViewXAPI.iV_Connect(c_char_p('127.0.0.1'), c_int(4444), c_char_p('127.0.0.1'), c_int(5555))
     if res != 1:
         HandleError(res)
@@ -88,12 +78,8 @@ def run_calibration(participant=0, max=10, deviation=1):
             systemData.API_Buildnumber) + "\n")
 
     # create calibration parameters
-    calibrationData = CCalibration(5, 1, 0, 0, 1, 250, 0, 2, 20, b"")
-    res = iViewXAPI.iV_SetupCalibration(byref(calibrationData))
-    calibration_log.write("Setup Calibration: " + str(res) + "\n")
     """
-    Arguments: (change these to variables)
-    
+    Arguments:
     1. method
     2. visualization
     3. display device
@@ -105,7 +91,11 @@ def run_calibration(participant=0, max=10, deviation=1):
     9. target size
     10. target filename
     """
+    calibrationData = CCalibration(5, 1, 0, 0, 1, 250, 0, 2, 20, b"")
+    res = iViewXAPI.iV_SetupCalibration(byref(calibrationData))
+    calibration_log.write("Setup Calibration: " + str(res) + "\n")
 
+    # calibrate eye-tracker within accepted deviation
     while not calibrated and attempts < max_attempts:
 
         cali = iViewXAPI.iV_Calibrate()
@@ -222,14 +212,15 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
             
         # gather eye-tracking data here
         if timestamp > t1:
+            iViewXAPI.iV_GetSample(byref(sampleData))
             t1 += sample_rate  # increment t1 by the sample rate
             t = timestamp - start
-            xPos_left.append(0)  # (sampleData.leftEye.gazeX)
-            xPos_right.append(0)  # (sampleData.rightEye.gazeX)
-            yPos_left.append(0)  # (sampleData.leftEye.gazeY)
-            yPos_right.append(0)  # (sampleData.rightEye.gazeY)
-            pDiam_left.append(0)  # (sampleData.leftEye.diam)
-            pDiam_right.append(0)  # (sampleData.rightEye.diam)
+            xPos_left.append(sampleData.leftEye.gazeX)
+            xPos_right.append(sampleData.rightEye.gazeX)
+            yPos_left.append(sampleData.leftEye.gazeY)
+            yPos_right.append(sampleData.rightEye.gazeY)
+            pDiam_left.append(sampleData.leftEye.diam)
+            pDiam_right.append(sampleData.rightEye.diam)
             t_sample.append(t)
             t_num.append(counter)
             counter += 1
@@ -238,25 +229,65 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
 
 
 
+# unused:
+    # left_eye = CEye(0,0,0)
+    # right_eye = CEye(0,0,0)
+    # eye_sample = CSample(0,left_eye,right_eye,0)
+    # position_x_left = eye_sample.leftEye.gazeX
+    # print "position x left: " + str(position_x_left)
+    # iViewXAPI.iV_GetSample(byref(sampleData))
+    # position_x_left = sampleData.leftEye.gazeX
+    # print "position x left: " + str(position_x_left)
 
+    # key_pressed = psychopy.event.waitKeys(keyList=["left", "right"])
+    # change to getkeys loop, possibly all within a function call
+    # it would take the lists and the sample rate as arguments (so 9 arguments already, plus maybe the sample data)
 
+    # xPos_left.append(sampleData.leftEye.gazeX)
+    # xPos_right.append(sampleData.rightEye.gazeX)
+    # yPos_left.append(sampleData.leftEye.gazeY)
+    # yPos_right.append(sampleData.rightEye.gazeY)
+    # pDiam_left.append(sampleData.leftEye.diam)
+    # pDiam_right.append(sampleData.rightEye.diam)
+    # t_sample.append(t0)
+    # t_num.append(counter)
 
-"""
-EYE-Tracking notes
+    '''while len(key_pressed) < 1:  # add counter with t_number (0 to N)
 
-If you want to put the whole task into the library:
-    1. boolean argument for eye-tracking
-    2. if true:
-            a. run calibration and connection
-            b. start recording
-            c. send image every trial
-                i. need to have image column in the stimuli file then
-            d. pause recording where necessary
-            e. run online-measure routine on each trial
-            f. close connection
-            g. save the data
-"""
+        # sample 
+        #eye_sample = iV_GetSample()
 
-# maybe
-# evenntually define a drift correction function (test with begaze first before trying that)
-# a setting to re-calibrate and re-open the file with 'a' instead of 'w' (append instead of write)
+        # diam = pupil diamter, gazeX/Y = position on screen
+        position_x_left = eye_sample.leftEye.gazeX
+        print "position x left: " + position_x_left
+
+        position_y_left = eye_sample.leftEye.gazeY
+        position_x_right = eye_sample.rightEye.gazeX
+        position_y_right = eye_sample.rightEye.gazeY
+        diameter_pupil_left = eye_sample.leftEye.diam
+        diameter_pupil_right = eye_sample.rightEye.diam
+
+        timestamp = trialClock.getTime()  # iV_GetCurrentTimestamp()
+        t_num = counter
+
+        #if timestamp > t1:  # not sure if this if statement is strictly necessary yet (may be redundant code here)
+        t1 += sample_rate
+        t = timestamp - start
+        x_left = position_x_left
+        x_right = position_x_right
+        y_left = position_y_left
+        y_right = position_y_right
+        pd_left = diameter_pupil_left
+        pd_right = diameter_pupil_right
+
+        xList_left.append(x_left)
+        xList_right.append(x_right)
+        yList_left.append(y_left)
+        yList_right.append(y_right)
+        pList_left.append(pd_left)
+        pList_right.append(pd_right)
+        tList.append(t)
+        tList_num.append(t_num)
+            # THEN: save these arrays to the trial handler
+
+        counter += 1'''

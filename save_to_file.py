@@ -3,7 +3,7 @@
 # nir library
 # ------------------
 # (Newman, Ian R = nir)
-#
+# https://github.com/irnewman/nir
 #
 # This is a library of tools for the Cognitive Science Lab at the
 # University of Saskatchewan. Please note that this is a work in progress
@@ -22,7 +22,7 @@
 # ---- Import Libraries
 # ---------------------------------------------
 
-# from psychopy import visual, data, event  # sound, gui, core, logging
+from psychopy import event  #visual, data, sound, gui, core, logging
 import os
 # import sys
 # import csv
@@ -62,13 +62,33 @@ def save_to_file(data_frame, header, file_name, p_num):
     df.to_csv(save_file, index=False)
     return
 
-
-# current_dir = os.path.dirname(os.path.abspath(__file__))
+# ---------------------------------------------
 
 
 # ---------------------------------------------
 # ---- Save Screen to Image File
 # ---------------------------------------------
 
-def save_to_image():  # INCOMPLETE
-    pass
+def save_to_image(win, image_name):
+
+    """
+        Function: save stimuli screenshot as png
+        Arguments:
+            win = psychopy window
+            image_name = name of image file to save
+        Note: may change to save to particular folder in the future
+    """
+
+    # file name as png
+    save_name = image_name + ".png"
+
+    # save the image
+    win.getMovieFrame(buffer='front')
+    win.saveMovieFrames(save_name)
+
+    # clear buffer
+    event.clearEvents()
+
+    return
+
+# ---------------------------------------------

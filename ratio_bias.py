@@ -3,7 +3,7 @@
 # nir library
 # ------------------
 # (Newman, Ian R = nir)
-#
+# https://github.com/irnewman/nir
 #
 # This is a library of tools for the Cognitive Science Lab at the
 # University of Saskatchewan. Please note that this is a work in progress

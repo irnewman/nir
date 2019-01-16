@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------
 #
-# nir library
+# nir library v0.1.3
 # ------------------
 # (Newman, Ian R = nir)
 # https://github.com/irnewman/nir
@@ -98,7 +98,7 @@ def get_response():  # might not be useful, but would standardize the functions 
         # get mouseclick response
     # if typed:
         # get multiple keypress response
-            # not sure how to do that yet
+            # not sure how to do that yet (get dialog box response basically)
     return
 
 # ---------------------------------------------

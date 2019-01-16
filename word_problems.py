@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------
 #
-# nir library
+# nir library v0.1.3
 # ------------------
 # (Newman, Ian R = nir)
 # https://github.com/irnewman/nir
@@ -51,11 +51,13 @@ class WordProblem(object):
             option1_x = x-coord (side) to present option 1
             option2_x = x-coord (side) to present option 2
             borders = boolean to draw rectangle around terms
+            conclusion_on_bottom = boolean to draw the last term at the bottom of the screen
     """
 
     # init
-    def __init__(self, win, terms=2, term1='', term2='', term3='', term4='', option1='', option2='', option1_x=-0.7, option2_x=0.7,
-                 borders=False):
+    def __init__(self, win, terms=2, term1='', term2='', term3='', term4='',
+                 option1='', option2='', option1_x=-0.7, option2_x=0.7,
+                 borders=False, conclusion_on_bottom=False):
         self.win = win
         self.term1 = term1
         self.term2 = term2
@@ -72,6 +74,7 @@ class WordProblem(object):
         self.answer_height = 0.1
         self.answer_width = 0.5
         self.borders = borders
+        self.conclusion_on_bottom = conclusion_on_bottom
         
         # set separation of terms on screen
         if terms == 4:
@@ -109,6 +112,7 @@ class WordProblem(object):
                                  pos=(0, self.option_pos + (self.term_sep*1)), height=0.1, wrapWidth=self.text_width, ori=0,
                                  color=u'white', colorSpace='rgb', opacity=1,
                                  depth=0.0)
+
 
         # create the response options for current trial
         self.option1 = visual.TextStim(win=win, name='text',
@@ -151,6 +155,17 @@ class WordProblem(object):
                                               width=self.answer_width,
                                               height=0.25)
 
+        if self.conclusion_on_bottom:
+            self.t1.pos = (0, self.option_pos + (self.term_sep*(terms-1)))
+            self.t2.pos = (0, self.option_pos + (self.term_sep*(terms-2)))
+            self.t3.pos = (0, self.option_pos + (self.term_sep*1))
+            self.t4.pos = (0, self.option_pos)
+            self.t1border.pos = (0, self.option_pos + (self.term_sep*(terms - 1)))
+            self.t2border.pos = (0, self.option_pos + (self.term_sep*(terms-2)))
+            self.t3border.pos = (0, self.option_pos + (self.term_sep*1))
+            self.t4border.pos = (0, self.option_pos)
+
+
     # draw elements of the stimuli
     def draw(self):
 
@@ -159,6 +174,8 @@ class WordProblem(object):
             self.t2border.draw()
             self.t3border.draw()
             self.t4border.draw()
+
+        if not self.conclusion_on_bottom:
             self.option1_border.draw()
             self.option2_border.draw()
 
@@ -184,10 +201,13 @@ class LastTermOnly(object):
             option1_x = x-coord (side) to present option 1
             option2_x = x-coord (side) to present option 2
             borders = boolean to draw rectangle around terms
+            term_on_bottom = boolean to draw the term at the bottom of the screen
+        NOTE: several options to clean and refine this function
     """
         
     # init
-    def __init__(self, win, term, option1='', option2='', option1_x=-0.7, option2_x=0.7, borders=False):
+    def __init__(self, win, term, option1='', option2='', option1_x=-0.7, option2_x=0.7,
+                 borders=False, term_on_bottom=False):
         self.win = win
         self.term = term
         self.option1 = option1
@@ -201,10 +221,14 @@ class LastTermOnly(object):
         self.answer_height = 0.1
         self.answer_width = 0.5
         self.borders = borders
-        
+
         # set positions
-        self.term_pos = -0.75
-        self.option_pos = 0.75
+        if term_on_bottom:
+            self.term_pos = -0.75
+            self.option_pos = 0.75
+        else:
+            self.term_pos = 0.75
+            self.option_pos = -0.75
 
         # create the premises for current trial
         self.term = visual.TextStim(win=self.win, name='text',
@@ -218,28 +242,28 @@ class LastTermOnly(object):
         self.option1 = visual.TextStim(win=win, name='text',
                                        text=self.option1,
                                        font=u'Arial',
-                                       pos=(option1_x, self.option_pos), height=0.1, wrapWidth=None, ori=0,
+                                       pos=(self.option1_x, self.option_pos), height=0.1, wrapWidth=None, ori=0,
                                        color=u'white', colorSpace='rgb', opacity=1,
                                        depth=0.0)
         self.option2 = visual.TextStim(win=win, name='text',
                                        text=self.option2,
                                        font=u'Arial',
-                                       pos=(option2_x, self.option_pos), height=0.1, wrapWidth=None, ori=0,
+                                       pos=(self.option2_x, self.option_pos), height=0.1, wrapWidth=None, ori=0,
                                        color=u'white', colorSpace='rgb', opacity=1,
                                        depth=0.0)
 
         # create the borders
         if self.borders:
             self.term_border = visual.Rect(win=win,
-                                        pos=(0, 0.8),
+                                        pos=(0, self.term_pos),
                                         width=self.border_width,
                                         height=0.25)
             self.option1_border = visual.Rect(win=win,
-                                              pos=(self.option1_x, -0.75),
+                                              pos=(self.option1_x, self.option_pos),
                                               width=self.answer_width,
                                               height=0.25)
             self.option2_border = visual.Rect(win=win,
-                                              pos=(self.option2_x, -0.75),
+                                              pos=(self.option2_x, self.option_pos),
                                               width=self.answer_width,
                                               height=0.25)
 

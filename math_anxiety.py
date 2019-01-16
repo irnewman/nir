@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------
 #
-# nir library
+# nir library v0.1.3
 # ------------------
 # (Newman, Ian R = nir)
 # https://github.com/irnewman/nir

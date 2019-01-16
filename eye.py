@@ -1,6 +1,6 @@
 # -----------------------------------------------------------------------
 #
-# nir library
+# nir library v0.1.3
 # ------------------
 # (Newman, Ian R = nir)
 # https://github.com/irnewman/nir
@@ -252,7 +252,8 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
     # t_sample.append(t0)
     # t_num.append(counter)
 
-    '''while len(key_pressed) < 1:  # add counter with t_number (0 to N)
+"""
+    while len(key_pressed) < 1:  # add counter with t_number (0 to N)
 
         # sample 
         #eye_sample = iV_GetSample()
@@ -290,4 +291,5 @@ def timecourse_eyetracking(xPos_left, yPos_left, xPos_right, yPos_right,
         tList_num.append(t_num)
             # THEN: save these arrays to the trial handler
 
-        counter += 1'''
+        counter += 1
+"""

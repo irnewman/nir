@@ -1,4 +1,4 @@
-# nir
+# nir v0.1.3
 A suite of functions for use with Psychopy experiments. v0.1
 (the readme will be updated in the near future)
 

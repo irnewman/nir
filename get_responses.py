@@ -102,3 +102,19 @@ def get_response():  # might not be useful, but would standardize the functions 
     return
 
 # ---------------------------------------------
+
+
+
+
+# if len(key_reading) > 0:  # at least one key was pressed
+#            key_resp.keys = key_pressed[-1]  # just the last key pressed
+#            key_resp.rt = key_resp.clock.getTime()
+
+# check responses
+# if key_resp.keys in ['', [], None]:  # No response was made
+#    key_resp.keys=None
+# trials.addData('key_resp.keys',key_resp.keys)
+# if key_resp.keys != None:  # we had a response
+#    trials.addData('key_resp.rt', key_resp.rt)
+# the Routine "trial" was not non-slip safe, so reset the non-slip timer
+# routineTimer.reset()

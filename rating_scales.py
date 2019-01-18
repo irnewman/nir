@@ -46,7 +46,7 @@ def create_confidence_scale(window):
     conf = visual.RatingScale(win=window, name='rating',
                               marker=u'triangle',
                               size=2.0, pos=[0, 0],
-                              low=0, high=100, markerStart=50,
+                              low=0, high=100, markerStart=None,
                               labels=[u'0%', u'100%'],
                               scale=u'Rate how right you feel about your response',
                               tickHeight=u'-0.0',

@@ -1,9 +1,8 @@
 # nir v0.1.3.1
-A suite of functions for use with Psychopy experiments. v0.1
-(the readme will be updated in the near future)
+A suite of functions for use with Psychopy experiments.
 
 ## Project Status
-In development.
+On hold. Due to the COVID-19 pandemic, use of in person testing (in particular, eye-tracking methodology) has been greatly limited. As such, development of this library is suspended indefinitely.
 
 ## Support
 Contact Ian Newman at ian.newman@usask.ca with questions or comments.
